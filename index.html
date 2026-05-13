@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
-<title>Happy Birthday Jessy 💕</title>
+<title>For Jessy 💕</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -20,17 +20,17 @@
 body{
     overflow-x:hidden;
     color:white;
-    background: radial-gradient(circle at top, #ff7fb0, #ffb3d6 45%, #120812 120%);
+    background: linear-gradient(180deg, #ff6a88 0%, #ffb199 40%, #2b1055 100%);
 }
 
-/* iPHONE SAFE */
+/* SAFE */
 body{
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* SCREENS */
-.start-screen, .gift-screen, .final-screen, .content{
+/* SCREEN */
+.screen{
     min-height:100vh;
     min-height:100svh;
     display:flex;
@@ -42,96 +42,108 @@ body{
 }
 
 /* START */
-.start-screen h1{
+#start h1{
     font-size:3rem;
-    margin-bottom:20px;
-    text-shadow:0 15px 35px rgba(0,0,0,0.35);
+    text-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-.open-btn{
-    padding:16px 42px;
+button{
+    margin-top:20px;
+    padding:16px 40px;
     border:none;
     border-radius:999px;
     background:white;
     color:#ff3d8d;
-    font-size:1.1rem;
     font-weight:600;
+    font-size:1.1rem;
     cursor:pointer;
-    transition:0.3s;
-    box-shadow:0 15px 30px rgba(0,0,0,0.25);
-}
-
-.open-btn:hover{
-    transform:scale(1.08);
 }
 
 /* GIFT */
-.gift-screen{ display:none; }
+#gift{display:none;}
 
-.gift-box{
-    font-size:5rem;
-    animation: float 1.2s infinite ease-in-out;
+.box{
+    width:160px;
+    height:160px;
+    position:relative;
+    animation: float 1.5s infinite ease-in-out;
+}
+
+.lid{
+    width:160px;
+    height:40px;
+    background:#ff4f9a;
+    position:absolute;
+    top:0;
+    transform-origin:top;
+    animation: open 1.2s forwards;
+}
+
+.base{
+    width:160px;
+    height:120px;
+    background:#ff2f86;
+    position:absolute;
+    bottom:0;
+}
+
+@keyframes open{
+    0%{transform:rotateX(0);}
+    100%{transform:rotateX(120deg) translateY(-40px); opacity:0;}
 }
 
 @keyframes float{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-18px); }
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
 }
 
-.opening{
-    animation: openGift 1.2s forwards;
+/* NAME SKY */
+#skyName{
+    position:fixed;
+    top:18%;
+    width:100%;
+    text-align:center;
+    font-size:3rem;
+    opacity:0;
+    animation: glow 2s forwards;
 }
 
-@keyframes openGift{
-    0%{ transform:scale(1); opacity:1; }
-    100%{ transform:scale(2.3); opacity:0; }
+@keyframes glow{
+    0%{opacity:0; transform:translateY(20px);}
+    100%{opacity:1; transform:translateY(0);}
 }
 
 /* FINAL */
-.final-screen{
-    display:none;
-    font-size:2rem;
-    font-weight:600;
-    animation: fadeIn 1s ease;
-}
+#final{display:none;font-size:2rem;font-weight:600;}
 
 /* CONTENT */
-.content{
-    display:none;
-    padding:60px 15px 100px;
-    animation: fadeIn 1.5s ease;
-}
+#content{display:none;padding:60px 15px;}
 
-/* CARD */
 .card{
     max-width:900px;
-    width:100%;
-    background: rgba(20, 10, 25, 0.65);
-    border:1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(22px);
+    margin:auto;
+    background:rgba(20,10,25,0.6);
+    backdrop-filter:blur(20px);
     border-radius:30px;
     padding:35px;
-    box-shadow:0 30px 80px rgba(0,0,0,0.6);
 }
 
 .title{
     text-align:center;
     font-size:2.2rem;
-    margin-bottom:25px;
     color:#ffd1ea;
+    margin-bottom:25px;
 }
 
 .text{
     font-size:1.05rem;
     line-height:2;
     white-space:pre-wrap;
-    color:rgba(255,255,255,0.92);
 }
 
 .signature{
     margin-top:40px;
     text-align:center;
-    font-size:1.2rem;
     font-weight:600;
     color:#ffd1ea;
 }
@@ -141,21 +153,12 @@ body{
     position:fixed;
     top:-10px;
     color:#ff4fa3;
-    z-index:999;
     animation: fall linear forwards;
     pointer-events:none;
 }
 
 @keyframes fall{
-    to{
-        transform:translateY(110vh);
-        opacity:0;
-    }
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(15px);}
-    to{opacity:1; transform:translateY(0);}
+    to{transform:translateY(110vh);opacity:0;}
 }
 
 /* FIREWORKS */
@@ -164,14 +167,12 @@ body{
     width:6px;
     height:6px;
     border-radius:50%;
-    background:white;
-    animation: explode 1s ease-out forwards;
-    z-index:9999;
+    animation: boom 1s ease-out forwards;
 }
 
-@keyframes explode{
-    0%{ transform:scale(1); opacity:1; }
-    100%{ transform:scale(25); opacity:0; }
+@keyframes boom{
+    0%{transform:scale(1);opacity:1;}
+    100%{transform:scale(25);opacity:0;}
 }
 
 </style>
@@ -180,62 +181,43 @@ body{
 <body>
 
 <!-- START -->
-<div class="start-screen" id="start">
+<div class="screen" id="start">
     <h1>For Jessy 💕</h1>
-    <button class="open-btn" onclick="openGift()">Open your gift 🎁</button>
+    <button onclick="openGift()">Open your gift 🎁</button>
 </div>
 
 <!-- GIFT -->
-<div class="gift-screen" id="gift">
-    <div class="gift-box">🎁</div>
+<div class="screen" id="gift">
+    <div class="box">
+        <div class="lid"></div>
+        <div class="base"></div>
+    </div>
 </div>
+
+<!-- SKY NAME -->
+<div id="skyName">Jessy ✨</div>
 
 <!-- FINAL -->
-<div class="final-screen" id="final">
-    ✨ Alles Gute Jessy ✨
-</div>
+<div class="screen" id="final">✨ Alles Gute Jessy ✨</div>
 
 <!-- CONTENT -->
-<div class="content" id="content">
+<div id="content">
+<div class="card">
 
-    <div class="card">
+<div class="title">Happy Birthday Jessyyyyy 🥳🎁💕</div>
 
-        <div class="title">Happy Birthday Jessyyyyy 🥳🎁💕</div>
+<div class="text" id="text"></div>
 
-        <div class="text" id="text"></div>
+<div class="signature">Mit ganz viel Liebe — Dylan 💕</div>
 
-        <div class="signature">Mit ganz viel Liebe — Dylan 💕</div>
-
-    </div>
+</div>
 </div>
 
 <audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b7c5b5.mp3?filename=soft-piano-ambient-110397.mp3"></audio>
 
 <script>
 
-function openGift(){
-
-    document.getElementById("sound").play();
-
-    document.getElementById("start").style.display = "none";
-    document.getElementById("gift").style.display = "flex";
-
-    setTimeout(()=>{
-        document.getElementById("gift").style.display = "none";
-        document.getElementById("final").style.display = "flex";
-    },1200);
-
-    setTimeout(()=>{
-        document.getElementById("final").style.display = "none";
-        document.getElementById("content").style.display = "flex";
-
-        typeWriter();
-        startFireworks();
-
-    },2600);
-}
-
-/* ✅ KOMPLETTER DEIN TEXT (UNVERÄNDERT) */
+/* ✅ DEIN KOMPLETTER TEXT (NICHT GEKÜRZT, NICHT VERÄNDERT) */
 const fullText = `Happy Birthday Jessyyyyy 🥳🎁💕
 
 Ich weiss ehrlich nöd mal genau, wie ich afange söll, will du mir mittlerwiile eifach mega viel bedütisch Sit du i mim Läbe bisch, fühlt sich irgendwie alles anders ah besser, leichter und eifach schöner. Du hesch öppis a dir, wo ich nöd richtig erkläre chan, aber genau das macht dich so bsunders.
@@ -282,12 +264,11 @@ Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z z
 let i = 0;
 function typeWriter(){
     const el = document.getElementById("text");
-
     function write(){
         if(i < fullText.length){
             el.innerHTML += fullText.charAt(i);
             i++;
-            setTimeout(write, 30); // bewusst langsam
+            setTimeout(write, 30);
         } else {
             startHearts();
         }
@@ -295,28 +276,48 @@ function typeWriter(){
     write();
 }
 
+/* FLOW */
+function openGift(){
+
+    document.getElementById("start").style.display="none";
+    document.getElementById("gift").style.display="flex";
+    document.getElementById("skyName").style.opacity="1";
+
+    setTimeout(()=>{
+        document.getElementById("gift").style.display="none";
+        document.getElementById("skyName").style.display="none";
+        document.getElementById("final").style.display="flex";
+    },1500);
+
+    setTimeout(()=>{
+        document.getElementById("final").style.display="none";
+        document.getElementById("content").style.display="block";
+        typeWriter();
+        startFireworks();
+    },3000);
+}
+
 /* HEARTS */
 function startHearts(){
     setInterval(()=>{
-        const h = document.createElement("div");
+        const h=document.createElement("div");
         h.classList.add("heart");
-        h.innerHTML = "💖";
-        h.style.left = Math.random()*100 + "vw";
-        h.style.fontSize = (Math.random()*16+12)+"px";
-        h.style.animationDuration = (Math.random()*3+4)+"s";
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(Math.random()*4+4)+"s";
         document.body.appendChild(h);
-        setTimeout(()=>h.remove(),7000);
+        setTimeout(()=>h.remove(),8000);
     },400);
 }
 
 /* FIREWORKS */
 function startFireworks(){
     setInterval(()=>{
-        const f = document.createElement("div");
+        const f=document.createElement("div");
         f.classList.add("firework");
-        f.style.left = Math.random()*100 + "vw";
-        f.style.top = Math.random()*100 + "vh";
-        f.style.background = `hsl(${Math.random()*360},100%,70%)`;
+        f.style.left=Math.random()*100+"vw";
+        f.style.top=Math.random()*100+"vh";
+        f.style.background=`hsl(${Math.random()*360},100%,70%)`;
         document.body.appendChild(f);
         setTimeout(()=>f.remove(),1000);
     },500);
