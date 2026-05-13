@@ -23,13 +23,15 @@ body{
     background:black;
 }
 
-/* 🌌 STAR SKY */
+/* 🌌 STARS */
 .stars{
     position:fixed;
     width:100%;
     height:100%;
-    background:black;
     z-index:-2;
+    overflow:hidden;
+    background:
+    linear-gradient(to bottom,#090b1a 0%,#1d0f2f 40%,#3f1b4d 100%);
 }
 
 .star{
@@ -38,7 +40,7 @@ body{
     height:2px;
     background:white;
     border-radius:50%;
-    animation: twinkle 2s infinite ease-in-out;
+    animation: twinkle 3s infinite ease-in-out;
 }
 
 @keyframes twinkle{
@@ -46,7 +48,7 @@ body{
     50%{opacity:1;}
 }
 
-/* 🎬 INTRO CINEMATIC */
+/* 🎬 INTRO */
 #intro{
     position:fixed;
     inset:0;
@@ -57,16 +59,15 @@ body{
     font-size:2rem;
     letter-spacing:2px;
     z-index:99999;
-    animation: fadeIntro 3s forwards;
+    animation: introFade 3s forwards;
 }
 
-@keyframes fadeIntro{
+@keyframes introFade{
     0%{opacity:1;}
     70%{opacity:1;}
-    100%{opacity:0; display:none;}
+    100%{opacity:0;visibility:hidden;}
 }
 
-/* SCREEN */
 .screen{
     min-height:100vh;
     display:flex;
@@ -77,19 +78,44 @@ body{
     padding:20px;
 }
 
-/* BUTTON */
-button{
-    margin-top:20px;
-    padding:16px 40px;
-    border:none;
-    border-radius:999px;
-    background:white;
-    color:#ff3d8d;
-    font-weight:600;
-    font-size:1.1rem;
+/* 🎁 GIFT */
+#giftBox{
+    font-size:6rem;
+    cursor:pointer;
+    transition:0.2s;
+    user-select:none;
+    animation: floatGift 2s ease-in-out infinite;
+    filter:drop-shadow(0 0 25px rgba(255,255,255,0.4));
 }
 
-/* 🎁 INTRO */
+#giftBox:active{
+    transform:scale(0.9);
+}
+
+#giftText{
+    margin-top:20px;
+    opacity:0.8;
+    font-size:1rem;
+}
+
+@keyframes floatGift{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+}
+
+.shake{
+    animation: shake 0.25s;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    50%{transform:translateX(8px);}
+    75%{transform:translateX(-8px);}
+    100%{transform:translateX(0);}
+}
+
+/* 🎁 OPEN EFFECT */
 #giftIntro{
     position:fixed;
     inset:0;
@@ -102,9 +128,18 @@ button{
 }
 
 @keyframes pop{
-    0%{transform:scale(0.4);opacity:0;}
-    50%{transform:scale(1.5);opacity:1;}
-    100%{transform:scale(1);opacity:0;}
+    0%{
+        transform:scale(0.3);
+        opacity:0;
+    }
+    50%{
+        transform:scale(1.6);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1);
+        opacity:0;
+    }
 }
 
 /* CONTENT */
@@ -116,13 +151,14 @@ button{
 .card{
     max-width:900px;
     margin:auto;
-    background:rgba(20,10,25,0.6);
+    background:rgba(20,10,25,0.65);
     backdrop-filter:blur(25px);
     border-radius:30px;
     padding:35px;
+    box-shadow:0 0 40px rgba(255,255,255,0.1);
 }
 
-/* 💌 HEARTBEAT TEXT EFFECT */
+/* 💌 HEARTBEAT */
 .text{
     font-size:1.05rem;
     line-height:2;
@@ -138,8 +174,8 @@ button{
 .title{
     text-align:center;
     font-size:2.2rem;
-    color:#ffd1ea;
     margin-bottom:25px;
+    color:#ffd1ea;
 }
 
 .signature{
@@ -147,6 +183,27 @@ button{
     text-align:center;
     font-weight:600;
     color:#ffd1ea;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+    #giftBox{
+        font-size:5rem;
+    }
+
+    .card{
+        padding:25px;
+    }
+
+    .text{
+        font-size:0.98rem;
+        line-height:1.9;
+    }
+
+    .title{
+        font-size:1.8rem;
+    }
 }
 
 </style>
@@ -158,27 +215,40 @@ button{
 <div class="stars" id="stars"></div>
 
 <!-- 🎬 INTRO -->
-<div id="intro">A small moment... for someone special 💕</div>
-
-<!-- START -->
-<div class="screen" id="start">
-    <h1>For Jessy 💕</h1>
-    <button onclick="startAll()">Open your gift 🎁</button>
+<div id="intro">
+    A small moment... for someone special 💕
 </div>
 
-<!-- 🎁 -->
+<!-- 🎁 START -->
+<div class="screen" id="start">
+
+    <div id="giftBox" onclick="tapGift()">
+        🎁
+    </div>
+
+    <div id="giftText">
+        Tap the gift to open it 💕
+    </div>
+
+</div>
+
+<!-- 💥 OPEN -->
 <div id="giftIntro">🎁</div>
 
-<!-- CONTENT -->
+<!-- 💌 CONTENT -->
 <div id="content">
 
 <div class="card">
 
-<div class="title">Happy Birthday Jessyyyyy 🥳🎁💕</div>
+<div class="title">
+Happy Birthday Jessyyyyy 🥳🎁💕
+</div>
 
 <div class="text" id="text"></div>
 
-<div class="signature">Mit ganz viel Liebe — Dylan 💕</div>
+<div class="signature">
+Mit ganz viel Liebe — Dylan 💕
+</div>
 
 </div>
 
@@ -188,41 +258,81 @@ button{
 
 /* 🌌 CREATE STARS */
 function createStars(){
+
     const sky=document.getElementById("stars");
-    for(let i=0;i<120;i++){
+
+    for(let i=0;i<140;i++){
+
         const s=document.createElement("div");
+
         s.classList.add("star");
+
         s.style.left=Math.random()*100+"vw";
         s.style.top=Math.random()*100+"vh";
-        s.style.animationDuration=(Math.random()*3+2)+"s";
+
+        s.style.animationDuration=(Math.random()*4+2)+"s";
+
         sky.appendChild(s);
     }
 }
+
 createStars();
 
-/* 🎬 FLOW */
-function startAll(){
+/* 🎁 GIFT TAP SYSTEM */
+let taps=0;
 
-    document.getElementById("start").style.display="none";
+function tapGift(){
 
-    /* intro cinematic */
+    const gift=document.getElementById("giftBox");
+
+    taps++;
+
+    gift.classList.add("shake");
+
     setTimeout(()=>{
+        gift.classList.remove("shake");
+    },250);
 
-        document.getElementById("intro").style.display="none";
-        document.getElementById("giftIntro").style.display="flex";
+    gift.style.transform=`scale(${1+taps*0.05})`;
+
+    if(taps===2){
+        document.getElementById("giftText").innerHTML=
+        "Hmm... maybe again 👀";
+    }
+
+    if(taps===4){
+        document.getElementById("giftText").innerHTML=
+        "It's opening... ✨";
+    }
+
+    /* OPEN */
+    if(taps>=5){
+
+        gift.style.transition="0.7s";
+        gift.style.transform="scale(12)";
+        gift.style.opacity="0";
 
         setTimeout(()=>{
-            document.getElementById("giftIntro").style.display="none";
-            document.getElementById("content").style.display="block";
 
-            typeWriter();
+            document.getElementById("start").style.display="none";
 
-        },1200);
+            document.getElementById("giftIntro").style.display="flex";
 
-    },3000);
+            setTimeout(()=>{
+
+                document.getElementById("giftIntro").style.display="none";
+
+                document.getElementById("content").style.display="block";
+
+                typeWriter();
+
+            },1200);
+
+        },700);
+    }
 }
 
-/* ✅ FULL TEXT (100% UNVERÄNDERT) */
+/* ✅ FULL TEXT (100% KOMPLETT) */
 const fullText = `Happy Birthday Jessyyyyy 🥳🎁💕
 
 Ich weiss ehrlich nöd mal genau, wie ich afange söll, will du mir mittlerwiile eifach mega viel bedütisch Sit du i mim Läbe bisch, fühlt sich irgendwie alles anders ah besser, leichter und eifach schöner. Du hesch öppis a dir, wo ich nöd richtig erkläre chan, aber genau das macht dich so bsunders.
@@ -267,18 +377,25 @@ Und ich denk mir oft: wenn ich dich scho in echt würd kenne, würd ich dir nöd
 
 Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z zeige, was du i mir uslösisch. Und ich hoff, das chunnt irgendwie ah.`;
 
-/* TYPEWRITER */
+/* ⌨️ TYPEWRITER */
 let i=0;
+
 function typeWriter(){
+
     const el=document.getElementById("text");
 
     function write(){
+
         if(i<fullText.length){
-            el.innerHTML+=fullText.charAt(i);
+
+            el.innerHTML += fullText.charAt(i);
+
             i++;
+
             setTimeout(write,28);
         }
     }
+
     write();
 }
 
