@@ -6,22 +6,30 @@
 
 <title>Happy Birthday Jessy 💕</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: Arial, sans-serif;
+    font-family:'Poppins', sans-serif;
 }
 
 body{
-    background: linear-gradient(135deg,#ff8fc7,#ffd1e8,#fff0f7);
     overflow-x:hidden;
     color:white;
+    background: radial-gradient(circle at top, #ff7fb0, #ffb3d6 45%, #120812 120%);
 }
 
-/* iPhone FULLSCREEN FIX */
+/* iPHONE SAFE */
+body{
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* SCREENS */
 .start-screen, .gift-screen, .final-screen, .content{
     min-height:100vh;
     min-height:100svh;
@@ -33,43 +41,42 @@ body{
     padding:20px;
 }
 
-/* START SCREEN */
+/* START */
 .start-screen h1{
     font-size:3rem;
+    text-shadow:0 15px 35px rgba(0,0,0,0.35);
     margin-bottom:20px;
-    text-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
 .open-btn{
-    padding:18px 45px;
+    padding:16px 42px;
     border:none;
     border-radius:999px;
     background:white;
-    color:#ff4f9a;
-    font-size:1.2rem;
-    font-weight:bold;
+    color:#ff3d8d;
+    font-size:1.1rem;
+    font-weight:600;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    box-shadow:0 15px 30px rgba(0,0,0,0.25);
 }
 
 .open-btn:hover{
     transform:scale(1.08);
 }
 
-/* GIFT SCREEN */
-.gift-screen{
-    display:none;
-}
+/* GIFT */
+.gift-screen{ display:none; }
 
 .gift-box{
     font-size:5rem;
-    animation: bounce 1s infinite;
+    animation: float 1.2s infinite ease-in-out;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
 }
 
-@keyframes bounce{
+@keyframes float{
     0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-15px); }
+    50%{ transform:translateY(-18px); }
 }
 
 .opening{
@@ -78,57 +85,67 @@ body{
 
 @keyframes openGift{
     0%{ transform:scale(1); opacity:1; }
-    100%{ transform:scale(2); opacity:0; }
+    100%{ transform:scale(2.3); opacity:0; }
 }
 
-/* FINAL SCREEN */
+/* FINAL TEXT */
 .final-screen{
     display:none;
     font-size:2rem;
-    font-weight:bold;
-    animation: fadeIn 1.2s ease;
+    font-weight:600;
+    animation: fadeIn 1s ease;
+    text-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* CONTENT */
 .content{
     display:none;
-    padding:40px 15px 90px;
+    padding:60px 15px 100px;
     animation: fadeIn 1.5s ease;
 }
 
+/* CARD */
 .card{
     max-width:900px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(18px);
+    width:100%;
+    background: rgba(20, 10, 25, 0.6);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(22px);
     border-radius:30px;
     padding:35px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.2);
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
 }
 
+/* TITLE */
 .title{
     text-align:center;
     font-size:2.2rem;
     margin-bottom:25px;
+    color:#ffd1ea;
 }
 
+/* TEXT */
 .text{
     white-space:pre-line;
     font-size:1.05rem;
     line-height:2;
+    color:rgba(255,255,255,0.92);
 }
 
+/* SIGNATURE */
 .signature{
     margin-top:40px;
     text-align:center;
-    font-size:1.3rem;
-    font-weight:bold;
+    font-size:1.2rem;
+    font-weight:600;
+    color:#ffd1ea;
 }
 
 /* HEARTS */
 .heart{
     position:fixed;
     top:-10px;
-    color:#ff2f92;
+    color:#ff4fa3;
     z-index:999;
     animation: fall linear forwards;
     pointer-events:none;
@@ -136,13 +153,13 @@ body{
 
 @keyframes fall{
     to{
-        transform: translateY(110vh);
-        opacity:0.9;
+        transform:translateY(110vh);
+        opacity:0;
     }
 }
 
 @keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
+    from{opacity:0; transform:translateY(15px);}
     to{opacity:1; transform:translateY(0);}
 }
 
@@ -151,12 +168,6 @@ body{
     .start-screen h1{font-size:2.2rem;}
     .card{padding:22px;}
     .text{font-size:0.98rem;}
-}
-
-/* SAFE AREA iPHONE */
-body{
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
 </style>
@@ -175,7 +186,7 @@ body{
     <div class="gift-box" id="box">🎁</div>
 </div>
 
-<!-- FINAL MESSAGE -->
+<!-- FINAL -->
 <div class="final-screen" id="final">
     ✨ Alles Gute Jessy ✨
 </div>
@@ -270,7 +281,7 @@ function createHeart(){
     heart.innerHTML = "💖";
 
     heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (Math.random()*18+12) + "px";
+    heart.style.fontSize = (Math.random()*16+12) + "px";
     heart.style.animationDuration = (Math.random()*3+4) + "s";
 
     document.body.appendChild(heart);
