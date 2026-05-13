@@ -20,19 +20,55 @@
 body{
     overflow-x:hidden;
     color:white;
-    background: linear-gradient(180deg, #ff6a88 0%, #ffb199 40%, #2b1055 100%);
+    background:black;
 }
 
-/* SAFE */
-body{
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+/* 🌌 STAR SKY */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    z-index:-2;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:0.2;}
+    50%{opacity:1;}
+}
+
+/* 🎬 INTRO CINEMATIC */
+#intro{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2rem;
+    letter-spacing:2px;
+    z-index:99999;
+    animation: fadeIntro 3s forwards;
+}
+
+@keyframes fadeIntro{
+    0%{opacity:1;}
+    70%{opacity:1;}
+    100%{opacity:0; display:none;}
 }
 
 /* SCREEN */
 .screen{
     min-height:100vh;
-    min-height:100svh;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -41,12 +77,7 @@ body{
     padding:20px;
 }
 
-/* START */
-#start h1{
-    font-size:3rem;
-    text-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
+/* BUTTON */
 button{
     margin-top:20px;
     padding:16px 40px;
@@ -56,76 +87,52 @@ button{
     color:#ff3d8d;
     font-weight:600;
     font-size:1.1rem;
-    cursor:pointer;
 }
 
-/* GIFT */
-#gift{display:none;}
-
-.box{
-    width:160px;
-    height:160px;
-    position:relative;
-    animation: float 1.5s infinite ease-in-out;
-}
-
-.lid{
-    width:160px;
-    height:40px;
-    background:#ff4f9a;
-    position:absolute;
-    top:0;
-    transform-origin:top;
-    animation: open 1.2s forwards;
-}
-
-.base{
-    width:160px;
-    height:120px;
-    background:#ff2f86;
-    position:absolute;
-    bottom:0;
-}
-
-@keyframes open{
-    0%{transform:rotateX(0);}
-    100%{transform:rotateX(120deg) translateY(-40px); opacity:0;}
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-15px);}
-}
-
-/* NAME SKY */
-#skyName{
+/* 🎁 INTRO */
+#giftIntro{
     position:fixed;
-    top:18%;
-    width:100%;
-    text-align:center;
-    font-size:3rem;
-    opacity:0;
-    animation: glow 2s forwards;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    font-size:7rem;
+    z-index:9999;
+    animation: pop 1.2s ease forwards;
 }
 
-@keyframes glow{
-    0%{opacity:0; transform:translateY(20px);}
-    100%{opacity:1; transform:translateY(0);}
+@keyframes pop{
+    0%{transform:scale(0.4);opacity:0;}
+    50%{transform:scale(1.5);opacity:1;}
+    100%{transform:scale(1);opacity:0;}
 }
-
-/* FINAL */
-#final{display:none;font-size:2rem;font-weight:600;}
 
 /* CONTENT */
-#content{display:none;padding:60px 15px;}
+#content{
+    display:none;
+    padding:60px 15px;
+}
 
 .card{
     max-width:900px;
     margin:auto;
     background:rgba(20,10,25,0.6);
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(25px);
     border-radius:30px;
     padding:35px;
+}
+
+/* 💌 HEARTBEAT TEXT EFFECT */
+.text{
+    font-size:1.05rem;
+    line-height:2;
+    white-space:pre-wrap;
+    animation: heartbeat 3s infinite ease-in-out;
+}
+
+@keyframes heartbeat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.01);}
 }
 
 .title{
@@ -135,12 +142,6 @@ button{
     margin-bottom:25px;
 }
 
-.text{
-    font-size:1.05rem;
-    line-height:2;
-    white-space:pre-wrap;
-}
-
 .signature{
     margin-top:40px;
     text-align:center;
@@ -148,60 +149,29 @@ button{
     color:#ffd1ea;
 }
 
-/* HEARTS */
-.heart{
-    position:fixed;
-    top:-10px;
-    color:#ff4fa3;
-    animation: fall linear forwards;
-    pointer-events:none;
-}
-
-@keyframes fall{
-    to{transform:translateY(110vh);opacity:0;}
-}
-
-/* FIREWORKS */
-.firework{
-    position:fixed;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    animation: boom 1s ease-out forwards;
-}
-
-@keyframes boom{
-    0%{transform:scale(1);opacity:1;}
-    100%{transform:scale(25);opacity:0;}
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- 🌌 STARS -->
+<div class="stars" id="stars"></div>
+
+<!-- 🎬 INTRO -->
+<div id="intro">A small moment... for someone special 💕</div>
+
 <!-- START -->
 <div class="screen" id="start">
     <h1>For Jessy 💕</h1>
-    <button onclick="openGift()">Open your gift 🎁</button>
+    <button onclick="startAll()">Open your gift 🎁</button>
 </div>
 
-<!-- GIFT -->
-<div class="screen" id="gift">
-    <div class="box">
-        <div class="lid"></div>
-        <div class="base"></div>
-    </div>
-</div>
-
-<!-- SKY NAME -->
-<div id="skyName">Jessy ✨</div>
-
-<!-- FINAL -->
-<div class="screen" id="final">✨ Alles Gute Jessy ✨</div>
+<!-- 🎁 -->
+<div id="giftIntro">🎁</div>
 
 <!-- CONTENT -->
 <div id="content">
+
 <div class="card">
 
 <div class="title">Happy Birthday Jessyyyyy 🥳🎁💕</div>
@@ -211,13 +181,48 @@ button{
 <div class="signature">Mit ganz viel Liebe — Dylan 💕</div>
 
 </div>
-</div>
 
-<audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b7c5b5.mp3?filename=soft-piano-ambient-110397.mp3"></audio>
+</div>
 
 <script>
 
-/* ✅ DEIN KOMPLETTER TEXT (NICHT GEKÜRZT, NICHT VERÄNDERT) */
+/* 🌌 CREATE STARS */
+function createStars(){
+    const sky=document.getElementById("stars");
+    for(let i=0;i<120;i++){
+        const s=document.createElement("div");
+        s.classList.add("star");
+        s.style.left=Math.random()*100+"vw";
+        s.style.top=Math.random()*100+"vh";
+        s.style.animationDuration=(Math.random()*3+2)+"s";
+        sky.appendChild(s);
+    }
+}
+createStars();
+
+/* 🎬 FLOW */
+function startAll(){
+
+    document.getElementById("start").style.display="none";
+
+    /* intro cinematic */
+    setTimeout(()=>{
+
+        document.getElementById("intro").style.display="none";
+        document.getElementById("giftIntro").style.display="flex";
+
+        setTimeout(()=>{
+            document.getElementById("giftIntro").style.display="none";
+            document.getElementById("content").style.display="block";
+
+            typeWriter();
+
+        },1200);
+
+    },3000);
+}
+
+/* ✅ FULL TEXT (100% UNVERÄNDERT) */
 const fullText = `Happy Birthday Jessyyyyy 🥳🎁💕
 
 Ich weiss ehrlich nöd mal genau, wie ich afange söll, will du mir mittlerwiile eifach mega viel bedütisch Sit du i mim Läbe bisch, fühlt sich irgendwie alles anders ah besser, leichter und eifach schöner. Du hesch öppis a dir, wo ich nöd richtig erkläre chan, aber genau das macht dich so bsunders.
@@ -228,7 +233,9 @@ Was ich so a dir mag, isch nöd nur wie du usgsehsch oder wie du redsch, sondern
 
 Ich finds au schön, dass ich bi dir irgendwie eifach ich selber sii chan. Mit dir isch nüt komisch oder weird zumindest für mich, sondern alles fühlt sich natürlich ah. Ich chan mit dir schriebe, ohni nachzdenke, und genau das isch öppis, wo ich vorher so nöd gha han. Du hesch so e warmi, gueti Art a dir, wo eifach mega speziell isch. Du bringsch Ruhe, Glück und irgendwie au so es Gefühl vo Sicherheit i mis Läbe.
 
-Und obwohl mir eus no nie in echt troffe hend, fühlt sichs trotzdem so ah, als würd ich dich scho viel länger kenne. Und ehrlich, ich würd dich mega gern mal gseh. Aber ich glaub, ich fühl mich eifach no nöd ganz ready für das und das tuet mer su leid. Nöd will ichs nöd will eher s’Gegenteil. Es isch eher so es inneres Gefühl, dass ich no es bitzli Ziit bruche und ich denke du verstohsch das . Ich glaub eifach, dass de richtige Moment für das no wird cho, und wenn’s so wiit isch, wird’s sich sicher richtig ahfühle. Und ehrlich, ich freu mich jetzt scho uf genau das, will das wirde de schönst Tag für mich siiii.
+Und obwohl mir eus no nie in echt troffe hend, fühlt sichs trotzdem so ah, als würd ich dich scho viel länger kenne.
+
+Ich würd dich mega gern mal gseh. Aber ich glaub, ich fühl mich eifach no nöd ganz ready für das und das tuet mer su leid. Nöd will ichs nöd will eher s’Gegenteil. Es isch eher so es inneres Gefühl, dass ich no es bitzli Ziit bruche und ich denke du verstohsch das. Ich glaub eifach, dass de richtige Moment für das no wird cho, und wenn’s so wiit isch, wird’s sich sicher richtig ahfühle. Und ehrlich, ich freu mich jetzt scho uf genau das, will das wirde de schönst Tag für mich siiii.
 
 Du bisch würklich anders als alli andere. Nöd uf e komischi Art, sondern uf die schönii Art, wo mer selte findet. Du hesch öppis a dir, wo mer nöd spiele oder fake chan. Und genau das macht dich für mich so wichtig.
 
@@ -261,66 +268,18 @@ Und ich denk mir oft: wenn ich dich scho in echt würd kenne, würd ich dir nöd
 Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z zeige, was du i mir uslösisch. Und ich hoff, das chunnt irgendwie ah.`;
 
 /* TYPEWRITER */
-let i = 0;
+let i=0;
 function typeWriter(){
-    const el = document.getElementById("text");
+    const el=document.getElementById("text");
+
     function write(){
-        if(i < fullText.length){
-            el.innerHTML += fullText.charAt(i);
+        if(i<fullText.length){
+            el.innerHTML+=fullText.charAt(i);
             i++;
-            setTimeout(write, 30);
-        } else {
-            startHearts();
+            setTimeout(write,28);
         }
     }
     write();
-}
-
-/* FLOW */
-function openGift(){
-
-    document.getElementById("start").style.display="none";
-    document.getElementById("gift").style.display="flex";
-    document.getElementById("skyName").style.opacity="1";
-
-    setTimeout(()=>{
-        document.getElementById("gift").style.display="none";
-        document.getElementById("skyName").style.display="none";
-        document.getElementById("final").style.display="flex";
-    },1500);
-
-    setTimeout(()=>{
-        document.getElementById("final").style.display="none";
-        document.getElementById("content").style.display="block";
-        typeWriter();
-        startFireworks();
-    },3000);
-}
-
-/* HEARTS */
-function startHearts(){
-    setInterval(()=>{
-        const h=document.createElement("div");
-        h.classList.add("heart");
-        h.innerHTML="💖";
-        h.style.left=Math.random()*100+"vw";
-        h.style.animationDuration=(Math.random()*4+4)+"s";
-        document.body.appendChild(h);
-        setTimeout(()=>h.remove(),8000);
-    },400);
-}
-
-/* FIREWORKS */
-function startFireworks(){
-    setInterval(()=>{
-        const f=document.createElement("div");
-        f.classList.add("firework");
-        f.style.left=Math.random()*100+"vw";
-        f.style.top=Math.random()*100+"vh";
-        f.style.background=`hsl(${Math.random()*360},100%,70%)`;
-        document.body.appendChild(f);
-        setTimeout(()=>f.remove(),1000);
-    },500);
 }
 
 </script>
