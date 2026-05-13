@@ -44,8 +44,8 @@ body{
 /* START */
 .start-screen h1{
     font-size:3rem;
-    text-shadow:0 15px 35px rgba(0,0,0,0.35);
     margin-bottom:20px;
+    text-shadow:0 15px 35px rgba(0,0,0,0.35);
 }
 
 .open-btn{
@@ -71,7 +71,6 @@ body{
 .gift-box{
     font-size:5rem;
     animation: float 1.2s infinite ease-in-out;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
 }
 
 @keyframes float{
@@ -88,13 +87,12 @@ body{
     100%{ transform:scale(2.3); opacity:0; }
 }
 
-/* FINAL TEXT */
+/* FINAL */
 .final-screen{
     display:none;
     font-size:2rem;
     font-weight:600;
     animation: fadeIn 1s ease;
-    text-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* CONTENT */
@@ -108,7 +106,7 @@ body{
 .card{
     max-width:900px;
     width:100%;
-    background: rgba(20, 10, 25, 0.6);
+    background: rgba(20, 10, 25, 0.65);
     border:1px solid rgba(255,255,255,0.12);
     backdrop-filter: blur(22px);
     border-radius:30px;
@@ -116,7 +114,6 @@ body{
     box-shadow:0 30px 80px rgba(0,0,0,0.6);
 }
 
-/* TITLE */
 .title{
     text-align:center;
     font-size:2.2rem;
@@ -124,15 +121,13 @@ body{
     color:#ffd1ea;
 }
 
-/* TEXT */
 .text{
-    white-space:pre-line;
     font-size:1.05rem;
     line-height:2;
+    white-space:pre-wrap;
     color:rgba(255,255,255,0.92);
 }
 
-/* SIGNATURE */
 .signature{
     margin-top:40px;
     text-align:center;
@@ -163,11 +158,20 @@ body{
     to{opacity:1; transform:translateY(0);}
 }
 
-/* MOBILE */
-@media(max-width:600px){
-    .start-screen h1{font-size:2.2rem;}
-    .card{padding:22px;}
-    .text{font-size:0.98rem;}
+/* FIREWORKS */
+.firework{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:white;
+    animation: explode 1s ease-out forwards;
+    z-index:9999;
+}
+
+@keyframes explode{
+    0%{ transform:scale(1); opacity:1; }
+    100%{ transform:scale(25); opacity:0; }
 }
 
 </style>
@@ -183,7 +187,7 @@ body{
 
 <!-- GIFT -->
 <div class="gift-screen" id="gift">
-    <div class="gift-box" id="box">🎁</div>
+    <div class="gift-box">🎁</div>
 </div>
 
 <!-- FINAL -->
@@ -196,13 +200,43 @@ body{
 
     <div class="card">
 
-        <div class="title">
-            Happy Birthday Jessyyyyy 🥳🎁💕
-        </div>
+        <div class="title">Happy Birthday Jessyyyyy 🥳🎁💕</div>
 
-        <div class="text">
+        <div class="text" id="text"></div>
 
-Happy Birthday Jessyyyyy 🥳🎁💕
+        <div class="signature">Mit ganz viel Liebe — Dylan 💕</div>
+
+    </div>
+</div>
+
+<audio id="sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b6b7c5b5.mp3?filename=soft-piano-ambient-110397.mp3"></audio>
+
+<script>
+
+function openGift(){
+
+    document.getElementById("sound").play();
+
+    document.getElementById("start").style.display = "none";
+    document.getElementById("gift").style.display = "flex";
+
+    setTimeout(()=>{
+        document.getElementById("gift").style.display = "none";
+        document.getElementById("final").style.display = "flex";
+    },1200);
+
+    setTimeout(()=>{
+        document.getElementById("final").style.display = "none";
+        document.getElementById("content").style.display = "flex";
+
+        typeWriter();
+        startFireworks();
+
+    },2600);
+}
+
+/* ✅ KOMPLETTER DEIN TEXT (UNVERÄNDERT) */
+const fullText = `Happy Birthday Jessyyyyy 🥳🎁💕
 
 Ich weiss ehrlich nöd mal genau, wie ich afange söll, will du mir mittlerwiile eifach mega viel bedütisch Sit du i mim Läbe bisch, fühlt sich irgendwie alles anders ah besser, leichter und eifach schöner. Du hesch öppis a dir, wo ich nöd richtig erkläre chan, aber genau das macht dich so bsunders.
 
@@ -242,53 +276,51 @@ Ich hoff echt, dass de Text für dich au öppis Schöns isch… will alles, was 
 
 Und ich denk mir oft: wenn ich dich scho in echt würd kenne, würd ich dir nöd nur so en Text schicke. Ich würd dir wahrschinlich Blume bringe oder irgendöpis, wo du gern hetsch, eifach will ich dir zeige wott, wie viel du mir bedütisch. Ich würd würklich uf die chline Sache achte, wo dich zum lächle lah lönd, will genau das isch das, wo ich bi dir am meiste liebe wenn du glücklich bisch.
 
-Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z zeige, was du i mir uslösisch. Und ich hoff, das chunnt irgendwie ah.
+Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z zeige, was du i mir uslösisch. Und ich hoff, das chunnt irgendwie ah.`;
 
-        </div>
+/* TYPEWRITER */
+let i = 0;
+function typeWriter(){
+    const el = document.getElementById("text");
 
-        <div class="signature">
-            Mit ganz viel Liebe — Dylan 💕
-        </div>
-
-    </div>
-</div>
-
-<script>
-
-function openGift(){
-
-    document.getElementById("start").style.display = "none";
-    document.getElementById("gift").style.display = "flex";
-
-    const box = document.getElementById("box");
-    box.classList.add("opening");
-
-    setTimeout(()=>{
-        document.getElementById("gift").style.display = "none";
-        document.getElementById("final").style.display = "flex";
-    },1200);
-
-    setTimeout(()=>{
-        document.getElementById("final").style.display = "none";
-        document.getElementById("content").style.display = "block";
-    },2600);
+    function write(){
+        if(i < fullText.length){
+            el.innerHTML += fullText.charAt(i);
+            i++;
+            setTimeout(write, 30); // bewusst langsam
+        } else {
+            startHearts();
+        }
+    }
+    write();
 }
 
-/* hearts */
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
-
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (Math.random()*16+12) + "px";
-    heart.style.animationDuration = (Math.random()*3+4) + "s";
-
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),7000);
+/* HEARTS */
+function startHearts(){
+    setInterval(()=>{
+        const h = document.createElement("div");
+        h.classList.add("heart");
+        h.innerHTML = "💖";
+        h.style.left = Math.random()*100 + "vw";
+        h.style.fontSize = (Math.random()*16+12)+"px";
+        h.style.animationDuration = (Math.random()*3+4)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),7000);
+    },400);
 }
 
-setInterval(createHeart,450);
+/* FIREWORKS */
+function startFireworks(){
+    setInterval(()=>{
+        const f = document.createElement("div");
+        f.classList.add("firework");
+        f.style.left = Math.random()*100 + "vw";
+        f.style.top = Math.random()*100 + "vh";
+        f.style.background = `hsl(${Math.random()*360},100%,70%)`;
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1000);
+    },500);
+}
 
 </script>
 
