@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
 <title>Happy Birthday Jessy 💕</title>
 
@@ -12,17 +12,19 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body{
-    background:linear-gradient(180deg,#ff9fcf,#ffd6ea,#fff0f7);
+    background: linear-gradient(135deg,#ff8fc7,#ffd1e8,#fff0f7);
     overflow-x:hidden;
     color:white;
 }
 
-.start-screen{
-    height:100vh;
+/* iPhone FULLSCREEN FIX */
+.start-screen, .gift-screen, .final-screen, .content{
+    min-height:100vh;
+    min-height:100svh;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -31,55 +33,88 @@ body{
     padding:20px;
 }
 
+/* START SCREEN */
 .start-screen h1{
-    font-size:2.7rem;
-    margin-bottom:25px;
-    text-shadow:0 0 15px rgba(255,255,255,0.7);
+    font-size:3rem;
+    margin-bottom:20px;
+    text-shadow:0 0 20px rgba(255,255,255,0.6);
 }
 
 .open-btn{
-    padding:18px 35px;
+    padding:18px 45px;
     border:none;
-    border-radius:50px;
+    border-radius:999px;
     background:white;
     color:#ff4f9a;
     font-size:1.2rem;
     font-weight:bold;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 0 25px rgba(255,255,255,0.5);
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
 .open-btn:hover{
-    transform:scale(1.06);
+    transform:scale(1.08);
 }
 
+/* GIFT SCREEN */
+.gift-screen{
+    display:none;
+}
+
+.gift-box{
+    font-size:5rem;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-15px); }
+}
+
+.opening{
+    animation: openGift 1.2s forwards;
+}
+
+@keyframes openGift{
+    0%{ transform:scale(1); opacity:1; }
+    100%{ transform:scale(2); opacity:0; }
+}
+
+/* FINAL SCREEN */
+.final-screen{
+    display:none;
+    font-size:2rem;
+    font-weight:bold;
+    animation: fadeIn 1.2s ease;
+}
+
+/* CONTENT */
 .content{
     display:none;
-    padding:30px 15px 80px;
-    animation:fadeIn 2s ease;
+    padding:40px 15px 90px;
+    animation: fadeIn 1.5s ease;
 }
 
 .card{
-    max-width:850px;
-    margin:auto;
-    background:rgba(255,255,255,0.14);
-    backdrop-filter:blur(14px);
-    border-radius:28px;
-    padding:25px;
-    line-height:2;
-    box-shadow:0 0 30px rgba(255,255,255,0.25);
+    max-width:900px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    border-radius:30px;
+    padding:35px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.2);
 }
 
 .title{
     text-align:center;
-    font-size:2rem;
+    font-size:2.2rem;
     margin-bottom:25px;
 }
 
 .text{
     white-space:pre-line;
-    font-size:1rem;
+    font-size:1.05rem;
+    line-height:2;
 }
 
 .signature{
@@ -89,49 +124,39 @@ body{
     font-weight:bold;
 }
 
+/* HEARTS */
 .heart{
     position:fixed;
     top:-10px;
-    color:#ff4f9a;
+    color:#ff2f92;
     z-index:999;
-    animation:fall linear forwards;
+    animation: fall linear forwards;
+    pointer-events:none;
 }
 
 @keyframes fall{
     to{
-        transform:translateY(110vh);
+        transform: translateY(110vh);
+        opacity:0.9;
     }
 }
 
 @keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
+/* MOBILE */
 @media(max-width:600px){
+    .start-screen h1{font-size:2.2rem;}
+    .card{padding:22px;}
+    .text{font-size:0.98rem;}
+}
 
-    .start-screen h1{
-        font-size:2rem;
-    }
-
-    .card{
-        padding:20px;
-    }
-
-    .text{
-        font-size:0.97rem;
-        line-height:1.9;
-    }
-
-    .title{
-        font-size:1.6rem;
-    }
+/* SAFE AREA iPHONE */
+body{
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 </style>
@@ -139,13 +164,23 @@ body{
 
 <body>
 
+<!-- START -->
 <div class="start-screen" id="start">
     <h1>For Jessy 💕</h1>
-    <button class="open-btn" onclick="openGift()">
-        Open your gift 🎁
-    </button>
+    <button class="open-btn" onclick="openGift()">Open your gift 🎁</button>
 </div>
 
+<!-- GIFT -->
+<div class="gift-screen" id="gift">
+    <div class="gift-box" id="box">🎁</div>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div class="final-screen" id="final">
+    ✨ Alles Gute Jessy ✨
+</div>
+
+<!-- CONTENT -->
 <div class="content" id="content">
 
     <div class="card">
@@ -154,7 +189,7 @@ body{
             Happy Birthday Jessyyyyy 🥳🎁💕
         </div>
 
-<div class="text">
+        <div class="text">
 
 Happy Birthday Jessyyyyy 🥳🎁💕
 
@@ -198,11 +233,11 @@ Und ich denk mir oft: wenn ich dich scho in echt würd kenne, würd ich dir nöd
 
 Aber au so, wie’s jetzt isch, versuech ich dir eifach so guet wie möglich z zeige, was du i mir uslösisch. Und ich hoff, das chunnt irgendwie ah.
 
-</div>
+        </div>
 
-<div class="signature">
-Mit ganz viel Liebe — Dylan 💕
-</div>
+        <div class="signature">
+            Mit ganz viel Liebe — Dylan 💕
+        </div>
 
     </div>
 </div>
@@ -210,32 +245,39 @@ Mit ganz viel Liebe — Dylan 💕
 <script>
 
 function openGift(){
+
     document.getElementById("start").style.display = "none";
-    document.getElementById("content").style.display = "block";
-}
+    document.getElementById("gift").style.display = "flex";
 
-function createHeart(){
-
-    const heart = document.createElement("div");
-
-    heart.classList.add("heart");
-
-    heart.innerHTML = "💕";
-
-    heart.style.left = Math.random() * 100 + "vw";
-
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-
-    document.body.appendChild(heart);
+    const box = document.getElementById("box");
+    box.classList.add("opening");
 
     setTimeout(()=>{
-        heart.remove();
-    },7000);
+        document.getElementById("gift").style.display = "none";
+        document.getElementById("final").style.display = "flex";
+    },1200);
+
+    setTimeout(()=>{
+        document.getElementById("final").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    },2600);
 }
 
-setInterval(createHeart,300);
+/* hearts */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*18+12) + "px";
+    heart.style.animationDuration = (Math.random()*3+4) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+}
+
+setInterval(createHeart,450);
 
 </script>
 
